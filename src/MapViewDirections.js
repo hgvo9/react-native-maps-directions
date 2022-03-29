@@ -92,6 +92,7 @@ class MapViewDirections extends Component {
 			precision = 'low',
 			timePrecision = 'none',
 			channel,
+			routingWaypoints
 		} = props;
 
 		if (!apikey) {
@@ -157,12 +158,22 @@ class MapViewDirections extends Component {
 				destination = `${destination.latitude},${destination.longitude}`;
 			}
 
-			waypoints = waypoints
+			if (routingWaypoints) {
+				waypoints = waypoints
 				.map(waypoint => (waypoint.latitude && waypoint.longitude) ? `${waypoint.latitude},${waypoint.longitude}` : waypoint)
 				.join('|');
+			} else {
+				waypoints = waypoints
+				.map(waypoint => (waypoint.latitude && waypoint.longitude) ? `${waypoint.latitude},${waypoint.longitude}` : waypoint)
+				.join('|via:');
+			}
 
 			if (optimizeWaypoints) {
-				waypoints = `optimize:true|${waypoints}`;
+				if (routingWaypoints) {
+					waypoints = `optimize:true|via:${waypoints}`;
+				} else {
+					waypoints = `optimize:true|${waypoints}`;
+				}
 			}
 
 			if (index === 0) {
