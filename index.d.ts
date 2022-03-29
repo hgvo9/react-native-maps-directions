@@ -276,6 +276,11 @@ declare module "react-native-maps-directions" {
      * Boolean to allow a polyline to be tappable and use the onPress function.
      */
     tappable?: boolean;
+    /**
+     * @boolean
+     * Boolean to allow re-routing a basic route between an origin/destination with waypoints
+     */
+    routingWaypoints?: boolean
   }
 
   export default class MapViewDirections extends React.Component<
