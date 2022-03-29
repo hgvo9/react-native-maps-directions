@@ -161,11 +161,11 @@ class MapViewDirections extends Component {
 			if (routingWaypoints) {
 				waypoints = waypoints
 				.map(waypoint => (waypoint.latitude && waypoint.longitude) ? `${waypoint.latitude},${waypoint.longitude}` : waypoint)
-				.join('|');
+				.join('|via:');
 			} else {
 				waypoints = waypoints
 				.map(waypoint => (waypoint.latitude && waypoint.longitude) ? `${waypoint.latitude},${waypoint.longitude}` : waypoint)
-				.join('|via:');
+				.join('|');
 			}
 
 			if (optimizeWaypoints) {
