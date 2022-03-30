@@ -174,6 +174,8 @@ class MapViewDirections extends Component {
 				} else {
 					waypoints = `optimize:true|${waypoints}`;
 				}
+			} else {
+				waypoints = `via:${waypoints}`;
 			}
 
 			if (index === 0) {
