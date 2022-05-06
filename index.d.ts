@@ -281,6 +281,12 @@ declare module "react-native-maps-directions" {
      * Boolean to allow re-routing a basic route between an origin/destination with waypoints
      */
     routingWaypoints?: boolean
+    /**
+     * @Array
+     * Array of objects, containing a full routes
+     */
+    routeCustom?: {}
+    
   }
 
   export default class MapViewDirections extends React.Component<

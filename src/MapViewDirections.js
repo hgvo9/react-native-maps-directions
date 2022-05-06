@@ -22,7 +22,7 @@ class MapViewDirections extends Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (!isEqual(prevProps.origin, this.props.origin) || !isEqual(prevProps.destination, this.props.destination) || !isEqual(prevProps.waypoints, this.props.waypoints) || !isEqual(prevProps.mode, this.props.mode) || !isEqual(prevProps.precision, this.props.precision) || !isEqual(prevProps.splitWaypoints, this.props.splitWaypoints)) {
+		if (!isEqual(prevPros.routeCustom, this.props.routeCustom) || !isEqual(prevProps.origin, this.props.origin) || !isEqual(prevProps.destination, this.props.destination) || !isEqual(prevProps.waypoints, this.props.waypoints) || !isEqual(prevProps.mode, this.props.mode) || !isEqual(prevProps.precision, this.props.precision) || !isEqual(prevProps.splitWaypoints, this.props.splitWaypoints)) {
 			if (this.props.resetOnChange === false) {
 				this.fetchAndRenderRoute(this.props);
 			} else {
@@ -92,7 +92,8 @@ class MapViewDirections extends Component {
 			precision = 'low',
 			timePrecision = 'none',
 			channel,
-			routingWaypoints
+			routingWaypoints,
+			routeCustom
 		} = props;
 
 		if (!apikey) {
@@ -187,7 +188,7 @@ class MapViewDirections extends Component {
 			}
 
 			return (
-				this.fetchRoute(directionsServiceBaseUrl, origin, waypoints, destination, apikey, mode, language, region, precision, timePrecisionString, channel)
+				this.fetchRoute(directionsServiceBaseUrl, origin, waypoints, destination, apikey, mode, language, region, precision, timePrecisionString, channel, routeCustom)
 					.then(result => {
 						return result;
 					})
@@ -240,7 +241,7 @@ class MapViewDirections extends Component {
 			});
 	}
 
-	fetchRoute(directionsServiceBaseUrl, origin, waypoints, destination, apikey, mode, language, region, precision, timePrecision, channel) {
+	fetchRoute(directionsServiceBaseUrl, origin, waypoints, destination, apikey, mode, language, region, precision, timePrecision, channel, routeCustom) {
 
 		// Define the URL to call. Only add default parameters to the URL if it's a string.
 		let url = directionsServiceBaseUrl;
@@ -265,7 +266,7 @@ class MapViewDirections extends Component {
 
 				if (json.routes.length) {
 
-					const route = json.routes[0];
+					const route = routeCustom.routes[0];
 
 					return Promise.resolve({
 						distance: route.legs.reduce((carry, curr) => {
